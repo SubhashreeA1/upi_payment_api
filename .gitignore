@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.pyo
+*.pyd
+*.swp
+*.swo
+
+# Django
+*.log
+*.pot
+*.pyc
+*.sqlite3
+media/
+staticfiles/
+.env
+
+# PostgreSQL
+*.backup
+
+# Docker
+*.env
+docker-compose.override.yml
+
+# IDEs
+.vscode/
+.idea/
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+*.pid
+
+# Others
+*.DS_Store
