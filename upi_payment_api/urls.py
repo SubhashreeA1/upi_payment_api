@@ -43,7 +43,8 @@ def create_admin(request):
 
 urlpatterns = [
     # Redirect root `/` → admin
-    path('', admin.site.urls),
+    #path('', admin.site.urls),
+    path('', lambda request: JsonResponse({"status": "UPI Payment API is running"})),
 
     # Django Admin
     path('admin/', admin.site.urls),
