@@ -178,3 +178,11 @@ else:
     CELERY_BROKER_URL = None
     RABBITMQ = None
 
+STATIC_URL = '/static/'
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Optional but recommended:
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
