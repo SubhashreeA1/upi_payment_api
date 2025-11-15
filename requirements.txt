@@ -16,3 +16,5 @@ django-celery-beat==2.6.0
 
 # Optional but helpful
 PyJWT==2.9.0
+
+whitenoise==6.11.0
