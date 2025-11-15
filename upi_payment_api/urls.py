@@ -16,15 +16,49 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.http import HttpResponse
+from django.http import JsonResponse
+from django.contrib.auth.models import User
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
+
+def create_admin(request):
+    """
+    Temporary route to create a superuser on Render deployment.
+    Remove after first login.
+    """
+    try:
+        if User.objects.filter(username="subha").exists():
+            return JsonResponse({"message": "Admin already exists"})
+
+        User.objects.create_superuser(
+            username="subha",
+            email="",
+            password="Subha@2003"
+        )
+        return JsonResponse({"message": "Admin created successfully"})
+
+    except Exception as e:
+        return JsonResponse({"error": str(e)})
+
+
 urlpatterns = [
-    path('', lambda request: HttpResponse("✅ UPI Payment API is running.")),
+    # Redirect root `/` → admin
+    path('', admin.site.urls),
+
+    # Django Admin
     path('admin/', admin.site.urls),
+
+    # TEMPORARY ADMIN CREATION ROUTE
+    path("create-admin/", create_admin),
+
+    # API routes
     path('api/auth/', include('auth.urls')),
     path('api/payments/', include('payments.urls')),
+
+    # JWT Auth
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    # Webhooks
     path('api/webhooks/', include('webhooks.urls')),
 ]
