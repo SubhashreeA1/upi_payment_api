@@ -18,8 +18,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.http import JsonResponse
 from django.contrib.auth.models import User
+from django.core.management import call_command
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
+def migrate_view(request):
+    try:
+        call_command("makemigrations")
+        call_command("migrate")
+        return JsonResponse({"message": "Migrations applied successfully"})
+    except Exception as e:
+        return JsonResponse({"error": str(e)})
 
 def create_admin(request):
     """
@@ -50,6 +58,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # TEMPORARY ADMIN CREATION ROUTE
+    path("migrate/", migrate_view),
     path("create-admin/", create_admin),
 
     # API routes
