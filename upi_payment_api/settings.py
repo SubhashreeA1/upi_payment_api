@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-yt&3(i-g6-c)k+9_gu62$$r$a0v+8u)358(j+c$rr7v)4%y-^a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*", "127.0.0.1", "localhost"]
 
@@ -149,18 +149,32 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
 
-AWS_LAMBDA_URL = "https://y8vwjc7iw7.execute-api.us-east-1.amazonaws.com/prod/validate"
+
 
 # Celery Configuration
-CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
+#CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'
+#CELERY_ACCEPT_CONTENT = ['json']
+#CELERY_TASK_SERIALIZER = 'json'
 
 # RabbitMQ Configuration
-RABBITMQ = {
-    "HOST": "localhost",
-    "PORT": 5672,
-    "USER": "guest",
-    "PASSWORD": "guest",
-    "QUEUE": "transaction_updates"
-}
+#RABBITMQ = {
+#   "HOST": "localhost",
+#    "PORT": 5672,
+#    "USER": "guest",
+#    "PASSWORD": "guest",
+#    "QUEUE": "transaction_updates"
+#}
+
+if RUNNING_LOCAL:
+    CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'
+    RABBITMQ = {
+        "HOST": "localhost",
+        "PORT": 5672,
+        "USER": "guest",
+        "PASSWORD": "guest",
+        "QUEUE": "transaction_updates"
+    }
+else:
+    CELERY_BROKER_URL = None
+    RABBITMQ = None
+
