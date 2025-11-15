@@ -25,12 +25,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-yt&3(i-g6-c)k+9_gu62$$r$a0v+8u)358(j+c$rr7v)4%y-^a'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["*", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["*", "upi-payment-api.onrender.com", "localhost", "127.0.0.1"]
+
 
 
 # Application definition
@@ -182,7 +183,4 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Optional but recommended:
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
+
